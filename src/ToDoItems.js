@@ -12,7 +12,7 @@ class ToDoItems extends React.Component {
   }
 
   createTasks(item) {
-    return (    
+    return (
       <li onClick={() => this.delete(item.key)} key={item.key}>
         {item.text}
       </li>
