@@ -4,11 +4,10 @@ import './index.css';
 import App from './App';
 import ToDoList from './ToDoList'
 import * as serviceWorker from './serviceWorker';
-import ToDoList from './ToDoList';
 
 let destination=document.querySelector('#root');
 
-ReactDOM.render(<ToDoList />, document.getElementById('root'));
+ReactDOM.render(<ToDoList />, destination);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
