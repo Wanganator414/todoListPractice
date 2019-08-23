@@ -1,36 +1,59 @@
 import React from "react";
-
+import ToDoItems from "./ToDoItems";
+import "./ToDoList.css";
 class ToDoList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: arrayH
+      items: []
     };
     this.addItem = this.addItem.bind(this);
-    this.setInput = this.setInput.bind(this);
+    this.deleteItem=this.deleteItem.bind(this);
     this._inputElement = React.createRef();
   }
 
-  addItem(e) {
-    this.setState((prevState)=>{
-        return{ 
-            items:prevState.items.concat(arrayH)
-        };
+  deleteItem(key) {
+    let filteredItems = this.state.items.filter(function(item) {
+      return item.key !== key;
     });
 
-  setInput(e) {
-    arrayH = e.target.value;
-    console.log(arrayH);
+    this.setState({
+      items: filteredItems
+    });
   }
+
+  addItem(e) {
+    if (this._inputElement.value !== "") {
+      let newItem = {
+        text: this._inputElement.value,
+        key: Date.now()
+      };
+
+      this.setState(prevState => {
+        return {
+          items: prevState.items.concat(newItem)
+        };
+      });
+
+      this._inputElement.value = "";
+    }
+    console.log(this.state.items);
+    e.preventDefault();
+  }
+
   render() {
     return (
       <div className="todoListMain">
         <div className="header">
           <form onSubmit={this.addItem}>
-            <input ref={(a) => this._inputElement = a} placeholder="Enter Task Here" />
+            <input
+              ref={a => (this._inputElement = a)}
+              placeholder="Enter Task Here"
+            />
             <button type="submit">Add</button>
           </form>
         </div>
+        <ToDoItems entries={this.state.items} delete={this.deleteItem} />
       </div>
     );
   }
